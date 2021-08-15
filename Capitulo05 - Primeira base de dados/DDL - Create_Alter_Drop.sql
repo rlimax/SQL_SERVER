@@ -6,10 +6,12 @@
 4 - DROP TABLE/DATABASE IF EXISTS	- Exclusão condicional de tabela/banco de dados
 
 */
+--CREATE DATABASE-----------------------------------------------------------------------
 ---------------------------Criar banco de dados simples
 CREATE DATABASE dataone;
 GO
 
+--ALTER DATABASE------------------------------------------------------------------------
 ---------------------------Criar novo arquivo de dados para o banco de dados
 ALTER DATABASE dataone ADD FILE ( NAME = 'dataone_n', 
 								  FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\dataone_n.ndf' , 
@@ -19,6 +21,7 @@ ALTER DATABASE dataone ADD FILE ( NAME = 'dataone_n',
 GO
 
 ---------------------------Lista arquivos referente ao banco de dados
+USE dataone;
 SELECT df.file_id, df.name  from sys.database_files df
 GO
 
@@ -42,7 +45,6 @@ ALTER DATABASE dataone ADD FILE ( NAME = 'dataone_n',
 								  FILEGROWTH = 10240KB ) TO FILEGROUP EXTRA
 GO
 
-
 ---------------------------Renomear banco de dados
 ALTER DATABASE dataone MODIFY NAME = data_one
 --EXEC sp_rename 'dataone', 'data_one';
@@ -52,6 +54,7 @@ GO
 USE data_one;
 GO
 
+--CREATE TABLE--------------------------------------------------------------------------
 ---------------------------Criar tabela
 CREATE TABLE dados_one(
 id_dado int NOT NULL IDENTITY PRIMARY KEY,
@@ -60,6 +63,7 @@ tipo_dado CHAR(2) NOT NULL
 )
 GO
 
+--ALTER TABLE---------------------------------------------------------------------------
 ---------------------------Renomear tabela
 EXEC sp_rename 'dados_one', 'dados';
 GO
@@ -80,11 +84,13 @@ GO
 ALTER TABLE dados DROP COLUMN situacao_bancaria;
 GO
 
+--EXCLUSÃO TABLE------------------------------------------------------------------------
 ---------------------------Exclusão condicional de tabela
 DROP TABLE IF EXISTS dados;
 GO
 
----------------------------Seta banco de dados
+--EXCLUSÃO DE DATABASE------------------------------------------------------------------
+---------------------------Seta outro banco de dados
 USE master;
 GO
 
